@@ -1,0 +1,53 @@
+<h2>Student Data</h2>
+
+<table class="student-table">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let s of students">  //it will loop over list of students (student[]) in the component and will create row for each student
+        <td>{{ s.id }}</td>           // s is the current student object
+        <td>{{ s.name }}</td>         // {{ }} it means interpolation, it inserts value into html
+        <td>{{ s.age }}</td>
+        <td>
+            <button (click)="editStudent(s)">Update</button>
+            <button (click)="deleteStudent(s.id)">Delete</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+<br>
+
+
+<button (click)="toggleForm()">
+    {{ isEditing ? 'Cancel Edit' : 'Create New Student Record' }}
+</button>
+
+
+<div *ngIf="showForm">          // *ngIf is a directive to show / hide content conditionally
+    <h3>{{ isEditing ? 'Update' : 'Create' }} Student</h3>
+    <form (ngSubmit)="submitStudent()">
+        <input
+                type="text"
+                [(ngModel)]="newStudent.name"
+                name="name"
+                placeholder="Name"
+                required
+        />
+        <input
+                type="number"
+                [(ngModel)]="newStudent.age"
+                name="age"
+                placeholder="Age"
+                required
+        />
+        <button type="submit">{{ isEditing ? 'Update' : 'Create' }}</button>
+    </form>
+</div>
